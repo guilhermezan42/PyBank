@@ -71,14 +71,14 @@ class PYBANKApp:
                         label_cliente['bg'] = '#5FC0E6'
             
              
-            label_cpf_login= tk.Label(self.janela, text= 'CPF:', height=1, width= 4, background="#5FC0E6")
+            label_cpf_login= tk.Label(self.janela, text= 'CPF:', height=1, width= 4, background="#044cac", fg="#FFFFFF",font= 'Arial 10 bold')
             label_cpf_login.pack()
             label_cpf_login.place(x=275, y=400)
             entry_cpf_login = tk.Entry(self.janela)
             entry_cpf_login.pack()
             entry_cpf_login.place(x=275, y=420)
 
-            label_senha = tk.Label(self.janela, text='Senha:', background="#5FC0E6")
+            label_senha = tk.Label(self.janela, text='Senha:', background="#044cac",fg="#FFFFFF",font= 'Arial 10 bold')
             label_senha.pack()
             label_senha.place(x=275, y=450)
             entry_senha = tk.Entry(self.janela, show='*')
@@ -86,7 +86,8 @@ class PYBANKApp:
             entry_senha.place(x=275, y=470)
 
             
-            button_enter = tk.Button(self.janela, text= 'Enter', command=logar).place(x=325, y=490)
+            button_enter = tk.Button(self.janela, text= 'Enter', command=logar,fg="#FFFFFF" ,bg="#043c84",font= 'Arial 10 bold', activebackground="#0c4895",
+                                      activeforeground= "#f1f0f0",cursor='hand2',relief= FLAT, padx=10, pady=5).place(x=310, y=500)
        
             label_cliente = tk.Label(self.janela, text='', background="#004aad")
             label_cliente.place(x=100, y=260)
