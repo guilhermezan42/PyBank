@@ -6,7 +6,8 @@ from tinydb import TinyDB, Query
 import tkinter.messagebox as messagebox
 from datetime import datetime, timedelta
 
-
+azul = '#044cac'
+azul_escuro = '#043c84'
 class PYBANKApp:
     def __init__(self):
         self.diretorio_atual = os.path.dirname(os.path.abspath(__file__))
@@ -68,7 +69,7 @@ class PYBANKApp:
                         abrir_menu(cliente_id)                   
                     else:
                         label_cliente['text'] = 'CPF ou senha inválidos!'
-                        label_cliente['bg'] = '#5FC0E6'
+                        label_cliente['bg'] = '#2475e0'
             
              
             label_cpf_login= tk.Label(self.janela, text= 'CPF:', height=1, width= 4, background="#044cac", fg="#FFFFFF",font= 'Arial 10 bold')
@@ -89,8 +90,8 @@ class PYBANKApp:
             button_enter = tk.Button(self.janela, text= 'Enter', command=logar,fg="#FFFFFF" ,bg="#043c84",font= 'Arial 10 bold', activebackground="#0c4895",
                                       activeforeground= "#f1f0f0",cursor='hand2',relief= FLAT, padx=10, pady=5).place(x=310, y=500)
        
-            label_cliente = tk.Label(self.janela, text='', background="#004aad")
-            label_cliente.place(x=100, y=260)
+            label_cliente = tk.Label(self.janela, background="#044cac",font='Arial 10 bold',padx= 5, pady=5,border=1,relief="flat")
+            label_cliente.place(x=100, y=350)
 
        ######################################################################################################## # FUNÇÃO EXTRATO ####################################################
         def abrir_extrato(cliente_id):
@@ -353,15 +354,17 @@ class PYBANKApp:
     
             
         while True:
-            opcoes_texto = 'Bem-vindo ao PYBANK.\nEscolha uma das opções abaixo:\n\n  1 - Fazer login\n  2 - Realizar cadastro'
+            opcoes_texto = 'Bem-vindo ao PYBANK.\n\nEscolha uma das opções abaixo:'
             verificar_debitos = Transacoes()
             verificar_debitos.verificar_debitos()
             verificar_banco = VerificarBanco()
             verificar_banco.verificar_banco()
-            label_opcoes = tk.Label(self.janela, text=opcoes_texto, font=("normal", 14, ), justify="left", bg="#f5f5f5", wraplength=300).place(x=215, y=375)
+            label_opcoes = tk.Label(self.janela, text=opcoes_texto, font=("Arial", 16 ), justify="left", bg= azul, wraplength=300, foreground= '#FFF').place(x=215, y=325)
 
-            button_1 = tk.Button(self.janela, text= '1', width=2, command=fazer_login).place(x=325, y=500)
-            button_2 = tk.Button(self.janela, text= '2', width=2, command= realizar_cadastro).place(x=350, y=500)
+            button_1 = tk.Button(self.janela, text= 'Login',width= 10,bg=azul_escuro,relief=RIDGE,command=fazer_login,font=("Arial", 10, 'bold' ),
+                                 foreground= '#FFF',height=2,activebackground="#0c4895",activeforeground= "#f1f0f0",cursor='hand2').place(x=250, y=460)
+            button_2 = tk.Button(self.janela, text= 'Cadastre-se',width= 10,bg=azul_escuro,font=("Arial", 10,'bold' ),foreground= '#FFF',
+                                  command= realizar_cadastro, height=2,activebackground="#0c4895",activeforeground= "#f1f0f0",cursor='hand2',relief=RIDGE).place(x=350, y=460)
 
             self.janela.mainloop()
 

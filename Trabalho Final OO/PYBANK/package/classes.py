@@ -255,11 +255,11 @@ class VerificarBanco:
         if len(self.db) == 0:
             dados_padrao = {
                         "cadastro_nivel": 2,
-                        "nome": "Clarice Bianca Bernardes",
+                        "nome": "Chevrolet da Silva Ford",
                         "telefone": "(88) 99881-4748",
                         "data_nascimento": "26/02/1973",
                         "cpf_ou_cnpj": "11111111111",
-                        "endereco": "Rua Clara Alves de Oliveira, Bastiana, Iguatu CE",
+                        "endereco": "Rua Clara Alves de Oliveira, Xique Xique, Bahia",
                         "renda": 1789.0,
                         "senha": "123456",
                         "transacoes": "",
