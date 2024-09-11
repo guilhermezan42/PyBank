@@ -126,7 +126,6 @@ class PYBANKApp:
                     janela_extrato = tk.Toplevel(self.janela)
                     janela_extrato.title("Extrato impresso")
                     janela_extrato.geometry("300x400")
-                    janela_extrato.place(x=50, y=345)
                     
                     frame_extrato = tk.Frame(janela_extrato)
                     frame_extrato.pack(fill=tk.BOTH, expand=True)
