@@ -113,7 +113,7 @@ class PYBANKApp:
                 
             transacoes_extrato = Transacoes()
 
-            mensagem_label = tk.Label(self.janela, text="", background="#5FC0E6", font=('normal', 10), justify="left")
+            mensagem_label = tk.Label(self.janela, text="", background="white", font=('normal', 10), justify="left")
             mensagem_label.pack()
             mensagem_label.place(x=120, y=170)
 
@@ -126,6 +126,7 @@ class PYBANKApp:
                     janela_extrato = tk.Toplevel(self.janela)
                     janela_extrato.title("Extrato impresso")
                     janela_extrato.geometry("300x400")
+                    janela_extrato.place(x=50, y=345)
                     
                     frame_extrato = tk.Frame(janela_extrato)
                     frame_extrato.pack(fill=tk.BOTH, expand=True)
@@ -154,13 +155,15 @@ class PYBANKApp:
                     
                 else:
                     mensagem_label.config(text="Não há transações para exibir.")
+                    mensagem_label.place(x=50, y=345)
 
-            label_cabecalho = tk.Label(self.janela, text=cliente["nome"].split()[0] + ", tecle enter para gerar o seu extrato.\nSeu saldo atual é: R$ " + str(cliente['saldo']), font=('normal', 16),fg="white", bg="#004aad",justify="left").place(x=50, y=170)
+            label_cabecalho = tk.Label(self.janela, text=cliente["nome"].split()[0] + ", aqui você pode olhar seu extrato.\nSeu saldo atual é: R$ " + str(cliente['saldo']),
+                                        font=('Arial', 18),fg=azul, bg="white",justify="left").place(x=50, y=210)  
             
 
             
-            button_enter = tk.Button(self.janela, text='Enter',  width=16, height=6,fg="white", bg="#004aad",  command=lambda: extrato(cliente_id)).place(x=350, y=400)
-            button_asterisco = tk.Button(self.janela, text= 'Voltar',  width=16, height=6,fg="white", bg="#004aad", command=lambda: abrir_menu(cliente_id)).place(x=200, y=400)
+            button_enter = tk.Button(self.janela, text='Abrir Extrato',  width=13, height=4,fg="white", bg="#004aad",font= "Arial 12 bold",relief=RIDGE , command=lambda: extrato(cliente_id)).place(x=350, y=400)
+            button_asterisco = tk.Button(self.janela, text= 'Voltar',  width=13, height=4,fg="white", bg="#004aad",font= "Arial 12 bold" ,relief=RIDGE , command=lambda: abrir_menu(cliente_id)).place(x=200, y=400)
            
 
         ############################################################################################################## FUNÇÃO DEPÓSITO> OK ##########################################################
@@ -175,9 +178,9 @@ class PYBANKApp:
             cliente = self.db.get(doc_id=cliente_id)
 
             def atualiza_tela(valor):
-                nonlocal cliente
+                nonlocal cliente                                                                                                                    
                 cliente = self.db.get(doc_id=cliente_id)
-                label_cabecalho = tk.Label(self.janela, text=cliente["nome"] + ",\nSeu saldo é:R$ " + str(cliente['saldo']) + '\n\nREALIZAR DEPÓSITO:', font=('normal', 16), fg="white", bg="#004aad", justify="left").place(x=50, y=170)
+                label_cabecalho = tk.Label(self.janela, text=cliente["nome"] + ",\nSeu saldo é:R$ " + str(cliente['saldo']) + '\n\nREALIZAR DEPÓSITO:', font=('normal', 16), fg=azul, bg="white", justify="left").place(x=50, y=170)
                 imagem = Image.open(self.diretorio_atual + "/images/PYBANK_interface.png")
                 nova_imagem = ImageTk.PhotoImage(imagem)
                 label.configure(image=nova_imagem)
@@ -185,9 +188,9 @@ class PYBANKApp:
                 
             transacao = Transacoes()
 
-            mensagem_label = tk.Label(self.janela, text="",fg="white", bg="#0543ad", font=('normal', 11), justify="left")
+            mensagem_label = tk.Label(self.janela, text="",fg="white", bg="white", font=('normal', 11), justify="left")
             mensagem_label.pack()
-            mensagem_label.place(x=50, y=310)
+            mensagem_label.place(x=50, y=330)
 
             def depositar(cliente_id):
                 nonlocal cliente
@@ -198,21 +201,22 @@ class PYBANKApp:
                     print(valor)
                     if transacao.deposito(cliente_id, valor):
                         atualiza_tela(valor)
-                        mensagem_label.config(text="Seu depósito de R$" + str(valor) + " foi realizado com sucesso.\nSeu saldo atual é: R$ " + str(cliente['saldo']))
+                        mensagem_label.config(text="Seu depósito de R$" + str(valor) + " foi realizado com sucesso.\nSeu saldo atual é: R$ " + str(cliente['saldo']),bg=azul)
                     else:
-                        mensagem_label.config(text="Erro. Este valor é inválido para depósitos.\nSeu saldo atual é: R$ " + str(cliente['saldo']))
+                        mensagem_label.config(text="Erro. Este valor é inválido para depósitos.\nSeu saldo atual é: R$ " + str(cliente['saldo']) , bg=azul)
+                      
 
-            label_cabecalho = tk.Label(self.janela, text=cliente["nome"] + ",\nSeu saldo é:R$ " + str(cliente['saldo']) + '\n\nREALIZAR DEPÓSITO:', font=('normal', 16), justify="left",fg="white", bg="#004aad",).place(x=50, y=170)
+            label_cabecalho = tk.Label(self.janela, text=cliente["nome"] + ",\nSeu saldo é:R$ " + str(cliente['saldo']) + '\n\nREALIZAR DEPÓSITO:', font=('normal', 16), justify="left",fg=azul, bg="white",).place(x=50, y=170)
             
-
-            label_valor= tk.Label(self.janela, text= 'Valor:', background="#5FC0E6").place(x=50, y=270)
-            entry_valor = tk.Entry(self.janela, background="#5FC0E6")
+                                                                
+            label_valor= tk.Label(self.janela, text= 'Valor:',fg='black', bg="white",font=('Arial', 10,'bold')).place(x=50, y=280)
+            entry_valor = tk.Entry(self.janela, bg='#f2f3f4')
             entry_valor.pack()
-            entry_valor.place(x=50, y=290)
+            entry_valor.place(x=50, y=300)
 
           
-            button_enter = tk.Button(self.janela, text='Enter',width=16, height=6, fg="white", bg="#004aad", command=lambda: depositar(cliente_id)).place(x=350, y=500)
-            button_asterisco = tk.Button(self.janela, text= 'Voltar', width=16, height=6,fg="white", bg="#004aad", command=lambda: abrir_menu(cliente_id)).place(x=200, y=500)
+            button_enter = tk.Button(self.janela, text='Confirmar\nDepósito', width=13, height=4,fg="white", bg="#004aad",font= "Arial 12 bold",relief=RIDGE, command=lambda: depositar(cliente_id)).place(x=350, y=500)
+            button_asterisco = tk.Button(self.janela, text= 'Voltar',  width=13, height=4,fg="white", bg="#004aad",font= "Arial 12 bold",relief=RIDGE, command=lambda: abrir_menu(cliente_id)).place(x=200, y=500)
             
 
         ############################################################################################################# INÍCIO DA FUNÇÃO SOLICITAR CRÉDITO#
@@ -230,21 +234,21 @@ class PYBANKApp:
 
             solicitar = SolicitaCredito()
 
-            label_valor = tk.Label(self.janela, text='Valor:', background="#5FC0E6")
+            label_valor = tk.Label(self.janela, text='Valor:', fg='black', bg="white",font=('Arial', 10,'bold'))
             label_valor.pack()
             label_valor.place(x=50, y=300)
-            entry_valor = tk.Entry(self.janela, background="#5FC0E6")
+            entry_valor = tk.Entry(self.janela, background="#f2f3f4")
             entry_valor.pack()
             entry_valor.place(x=50, y=320)
 
-            label_credito_situacao = tk.Label(self.janela, text="", font=("Arial", 10), justify="left", fg="white", bg="#004aad")
+            label_credito_situacao = tk.Label(self.janela, text="", font=("Arial", 10), justify="left", fg="white", bg="white")
             label_credito_situacao.pack()
-            label_credito_situacao.place(x=50, y=250)
+            label_credito_situacao.place(x=50, y=345)
 
         
 
-            label_cabecalho = tk.Label(self.janela, text="Olá, " + cliente["nome"] + "\nfaça o seu pedido." + '\n\nPEDIDO DE CRÉDITO:', font=('normal', 11), fg="white", bg="#004aad", justify="left").place(x=50, y=170)
-            button_asterisco = tk.Button(self.janela, text= 'Voltar', width=16, height=6,fg="white", bg="#004aad" , command=lambda: abrir_menu(cliente_id)).place(x=200, y=400)
+            label_cabecalho = tk.Label(self.janela, text="Olá, " + cliente["nome"] + "\nfaça o seu pedido." + '\n\nPEDIDO DE CRÉDITO:',  font=('normal', 16), fg=azul, bg="white", justify="left").place(x=50, y=170)
+            button_asterisco = tk.Button(self.janela, text= 'Voltar', width=13, height=4,fg="white", bg="#004aad",font= "Arial 12 bold",relief=RIDGE, command=lambda: abrir_menu(cliente_id)).place(x=200, y=500)
 
             def enviar_solicitacao(cliente_id):
                 print(cliente_id)
@@ -253,13 +257,13 @@ class PYBANKApp:
                 data_prox_fatura = data_atual + timedelta(days=30)
                 data_formatada = data_prox_fatura.strftime("%d/%m/%Y")
                 if valor <= 0:
-                    label_credito_situacao.configure(text="O valor da solicitação não pode ser menor ou igual a 0.")
+                    label_credito_situacao.configure(text="O valor da solicitação não pode ser menor ou igual a 0.",bg=azul)
                 else:
                     if solicitar.solicitacao(cliente_id, valor, data_formatada):
-                        label_credito_situacao.configure(text="Parabéns, seu crédito foi aprovado!\nSua próxima fatura será debitada em 30 dias.")
-                    else: label_credito_situacao.configure(text="Que pena! Não foi dessa vez.\nSe você já fez um pedido de crédito, outra liberação\n só ocorrerá quando não houver mais débitos a serem feitos.")
+                        label_credito_situacao.configure(text="Parabéns, seu crédito foi aprovado!\nSua próxima fatura será debitada em 30 dias.",bg=azul)
+                    else: label_credito_situacao.configure(text="Que pena! Não foi dessa vez.\nSe você já fez um pedido de crédito, outra liberação\nsó ocorrerá quando não houver mais débitos a serem feitos.",bg=azul)
 
-            button_enter = tk.Button(self.janela, text='Enter', width=16, height=6,fg="white", bg="#004aad" ,command=lambda: enviar_solicitacao(cliente_id)).place(x=350, y=400)
+            button_enter = tk.Button(self.janela, text='Confirmar\nSolicitaçao',width=13, height=4,fg="white", bg="#004aad",font= "Arial 12 bold",relief=RIDGE, command=lambda: enviar_solicitacao(cliente_id)).place(x=350, y=500)
             
 
         ########################################################################################################### INÍCIO DA FUNÇÃO PAGAMENTO
@@ -273,7 +277,7 @@ class PYBANKApp:
             label.image = nova_imagem
             cliente = self.db.get(doc_id=cliente_id)
             
-            label_cabecalho = tk.Label(self.janela, text=cliente["nome"] + ", seu saldo é:\nR$ " + str(cliente['saldo']) + '\n\nREALIZAR TRANSFERÊNCIA:', font=('normal', 11), justify="left", fg="white", bg="#004aad").place(x=50, y=170)
+            label_cabecalho = tk.Label(self.janela, text=cliente["nome"] + ", seu saldo é:\nR$ " + str(cliente['saldo']) + '\n\nREALIZAR TRANSFERÊNCIA:', justify=LEFT, font=('normal', 16), fg=azul, bg="white",).place(x=50, y=170)
 
             def pagamento(cliente_id):
                 cpf = conta_destino_entry.get()
@@ -284,7 +288,7 @@ class PYBANKApp:
                 
                 if valor <= 0:
                     mensagem_label = tk.Label(self.janela, text='Valor inválido', background="#004aad")
-                    mensagem_label.place(x=50, y=240)
+                    mensagem_label.place(x=50, y=365)
                     return False
                 
                 for indice, destinatario in enumerate(self.db.all()):
@@ -295,30 +299,30 @@ class PYBANKApp:
                         
                         if transacao.realizar_pagamento(cliente_id, destinatario_id, valor):
                             cliente = self.db.get(doc_id=cliente_id)
-                            label_cabecalho = tk.Label(self.janela, text=cliente["nome"] + ", seu saldo é:\nR$ " + str(cliente['saldo']) + '\n\nREALIZAR TRANSFERÊNCIA:', font=('normal', 11), justify="left", fg="white", bg="#004aad",).place(x=50, y=170)
+                            label_cabecalho = tk.Label(self.janela, text=cliente["nome"] + ", seu saldo é:\nR$ " + str(cliente['saldo']) + '\n\nREALIZAR TRANSFERÊNCIA:', justify=LEFT, font=('normal', 16), fg=azul, bg="white",).place(x=50, y=170)
                             mensagem_label = tk.Label(self.janela, text='Pagamento realizado com sucesso', background="#004aad")
-                            mensagem_label.place(x=50, y=240)
+                            mensagem_label.place(x=50, y=365)
                             cliente = self.db.get(doc_id=cliente_id)
                             return True
                         else:
                             mensagem_label = tk.Label(self.janela, text='ERRO! Transação não realizada',background="#004aad")
-                            mensagem_label.place(x=50, y=240)
+                            mensagem_label.place(x=50, y=365)
                             return False
             
-            conta_destino_label = tk.Label(self.janela, text="CPF/CNPJ da conta de destino:", background="#5FC0E6")
-            conta_destino_label.place(x=50, y=260)
-            conta_destino_entry = tk.Entry(self.janela, background="#5FC0E6")
-            conta_destino_entry.place(x=50, y=280)
+            conta_destino_label = tk.Label(self.janela, text="CPF/CNPJ da conta de destino:", background="#FFF",font=('Arial', 10,'bold'))
+            conta_destino_label.place(x=50, y=280)
+            conta_destino_entry = tk.Entry(self.janela, background="#f2f3f4")
+            conta_destino_entry.place(x=50, y=300)
 
-            valor_label = tk.Label(self.janela, text="Valor do pagamento:", background="#5FC0E6")
-            valor_label.place(x=50, y=300)
-            valor_entry = tk.Entry(self.janela, background="#5FC0E6")
-            valor_entry.place(x=50, y=320)            
+            valor_label = tk.Label(self.janela, text="Valor do pagamento:", fg='black', bg="white",font=('Arial', 10,'bold'))
+            valor_label.place(x=50, y=320)
+            valor_entry = tk.Entry(self.janela, background="#f2f3f4")
+            valor_entry.place(x=50, y=340)            
             
         
-            button_enter = tk.Button(self.janela, text='Enter', width=16, height=6,fg="white", bg="#004aad", command= lambda: pagamento(cliente_id))
-            button_enter.place(x=350, y=400)
-            button_asterisco = tk.Button(self.janela, text= 'Voltar', width=16, height=6,fg="white", bg="#004aad", command=lambda: abrir_menu(cliente_id)).place(x=200, y=400)
+            button_enter = tk.Button(self.janela, text='Confirmar\nTransferência',  width=13, height=4,fg="white", bg="#004aad",font= "Arial 12 bold",relief=RIDGE, command= lambda: pagamento(cliente_id))
+            button_enter.place(x=350, y=500)
+            button_asterisco = tk.Button(self.janela, text= 'Voltar',width=13, height=4,fg="white", bg="#004aad",font= "Arial 12 bold",relief=RIDGE, command=lambda: abrir_menu(cliente_id)).place(x=200, y=500)
             
         # INÍCIO DA FUNÇÃO MENU #
         def abrir_menu(cliente_id):
@@ -328,8 +332,8 @@ class PYBANKApp:
             label.place(x=0, y=0, relwidth=1, relheight=1)
             cliente = self.db.get(doc_id=cliente_id)
 
-            label_cabecalho = tk.Label(self.janela, text='Olá, ' + cliente["nome"] + ".", font=('normal', 16), fg="white", bg="#004aad" , justify="center").place(x=50, y=170)
-            label_saldo = tk.Label(self.janela, text="SALDO:\nR$ " + str(cliente['saldo']), font=('normal', 30), fg="white", bg="#004aad" , justify="left").place(x=50, y= 220)
+            label_cabecalho = tk.Label(self.janela, text='Olá, ' + cliente["nome"] + ".", font=('Arial', 18), fg= azul, bg="white" , justify="center", pady=10).place(x=50, y=170)
+            label_saldo = tk.Label(self.janela, text="SALDO:\nR$ " + str(cliente['saldo']), font=('Arial', 30), fg=azul, bg="white" , justify="left").place(x=50, y= 220)
 
            
 
@@ -338,11 +342,11 @@ class PYBANKApp:
 
             
 
-            button_1 = tk.Button(self.janela, text= 'Extrato', width=16, height=6, fg="white", bg="#004aad", command=lambda: abrir_extrato(cliente_id)).place(x=50, y=400)
-            button_3 = tk.Button(self.janela, text= 'Deposito', width=16, height=6, fg="white",bg="#004aad", justify="left", command=lambda: abrir_deposito(cliente_id)).place(x=200, y=400)
-            button_4 = tk.Button(self.janela, text= 'Transferência \n Bancária', width=16, height=6,fg="white", bg="#004aad", command=lambda: realizar_pagamento(cliente_id)).place(x=350, y=400)
-            button_5 = tk.Button(self.janela, text= 'Solicitar Crédito', width=16, height=6,fg="white", bg="#004aad", command=lambda: solicita_credito(cliente_id)).place(x=500, y=400)
-            button_6 = tk.Button(self.janela, text= 'Sair', width=8, height=2,fg="white", bg="#004aad", command=sair).place(x=625, y=850)
+            button_1 = tk.Button(self.janela, text= 'Extrato',font= "Arial 12 bold" ,width=13, height=4, fg="white", bg="#004aad",relief=RIDGE, command=lambda: abrir_extrato(cliente_id)).place(x=50, y=400)
+            button_3 = tk.Button(self.janela, text= 'Deposito',font= "Arial 12 bold" , width=13, height=4, fg="white",bg="#004aad", justify="left",relief=RIDGE, command=lambda: abrir_deposito(cliente_id)).place(x=200, y=400)
+            button_4 = tk.Button(self.janela, text= 'Transferência \n Bancária',font= "Arial 12 bold" , width=13, height=4,fg="white", bg="#004aad",relief=RIDGE, command=lambda: realizar_pagamento(cliente_id)).place(x=350, y=400)
+            button_5 = tk.Button(self.janela, text= 'Solicitar Crédito',font= "Arial 12 bold" , width=13, height=4,fg="white", bg="#004aad",relief=RIDGE, command=lambda: solicita_credito(cliente_id)).place(x=500, y=400)
+            button_6 = tk.Button(self.janela, text= 'Sair',font= "Arial" , width=6, height=2,fg="white", bg="#004aad",relief=RIDGE, command=sair).place(x=625, y=840)
 
             self.janela.mainloop()
             
