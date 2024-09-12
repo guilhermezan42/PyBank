@@ -31,40 +31,40 @@ def abrir_tela_cadastro(user_id, button_cadastrar, label_msg_head):
     button_excluir_cliente.destroy()
     label_msg_head.destroy()
 
-    label_nome = Label(janela, text='Nome:')
+    label_nome = Label(janela, text='Nome:',bg="#FFF")
     label_nome.place(x=100, y=160)
-    entry_nome = Entry(janela)
+    entry_nome = Entry(janela, bg='#f2f3f4')
     entry_nome.place(x=100, y=180)
 
-    label_cpf_ou_cnpj = Label(janela, text='CPF/CNPJ:')
+    label_cpf_ou_cnpj = Label(janela, text='CPF/CNPJ:',bg="#FFF")
     label_cpf_ou_cnpj.place(x=250, y=160)
-    entry_cpf_ou_cnpj = Entry(janela)
+    entry_cpf_ou_cnpj = Entry(janela, bg='#f2f3f4')
     entry_cpf_ou_cnpj.place(x=250, y=180)
 
-    label_data_nascimento = Label(janela, text='Data de Nascimento (ex: 01/01/2001):')
+    label_data_nascimento = Label(janela, text='Data de Nascimento (ex: 01/01/2001):',bg="#FFF")
     label_data_nascimento.place(x=400, y=160)
-    entry_data_nascimento = Entry(janela)
+    entry_data_nascimento = Entry(janela, bg='#f2f3f4')
     entry_data_nascimento.place(x=400, y=180)
 
-    label_telefone = Label(janela, text='Telefone:')
-    label_telefone.place(x=100, y=190)
-    entry_telefone = Entry(janela)
-    entry_telefone.place(x=100, y=210)
+    label_telefone = Label(janela, text='Telefone:',bg="#FFF")
+    label_telefone.place(x=100, y=200)
+    entry_telefone = Entry(janela, bg='#f2f3f4')
+    entry_telefone.place(x=100, y=220)
 
-    label_endereco = Label(janela, text='Endereço:')
-    label_endereco.place(x=250, y=190)
-    entry_endereco = Entry(janela)
-    entry_endereco.place(x=250, y=210)
+    label_endereco = Label(janela, text='Endereço:',bg="#FFF")
+    label_endereco.place(x=250, y=200)
+    entry_endereco = Entry(janela, bg='#f2f3f4')
+    entry_endereco.place(x=250, y=220)
 
-    label_renda = Label(janela, text='Renda:')
-    label_renda.place(x=400, y=190)
-    entry_renda = Entry(janela)
-    entry_renda.place(x=400, y=210)
+    label_renda = Label(janela, text='Renda:',bg="#FFF")
+    label_renda.place(x=400, y=200)
+    entry_renda = Entry(janela, bg='#f2f3f4')
+    entry_renda.place(x=400, y=220)
 
-    label_senha = Label(janela, text='Crie a sua senha:')
-    label_senha.place(x=100, y=230)
-    entry_senha = Entry(janela, show='*')
-    entry_senha.place(x=100, y=250)
+    label_senha = Label(janela, text='Crie a sua senha:',bg="#FFF")
+    label_senha.place(x=100, y=240)
+    entry_senha = Entry(janela, show='*', bg='#f2f3f4')
+    entry_senha.place(x=100, y=260)
 
     button_frame = Frame(janela)
     button_frame.pack(pady=10)
@@ -139,9 +139,9 @@ def abrir_tela_cadastro(user_id, button_cadastrar, label_msg_head):
             import tkinter.messagebox as messagebox
             messagebox.showerror("Erro", "Todos os campos devem ser preenchidos.")
 
-    button_salvar = Button(janela, text='Cadastrar', command= verificar_campos)
+    button_salvar = Button(janela, text='Cadastrar',font= 'Arial 10 bold', cursor='hand2',relief= 'ridge',bg="#043c84",fg="#FFF", command= verificar_campos)
     button_salvar.pack(side='top', padx=5)
-    button_salvar.place(x=100, y=270)
+    button_salvar.place(x=100, y=285)
 
     def validar_cpf(cpf):
         # Remover caracteres não numéricos
@@ -186,7 +186,7 @@ def abrir_tela_cadastro(user_id, button_cadastrar, label_msg_head):
 
         abrir_painel_gerente(user_id)
 
-    button_voltar = Button(janela, text='Voltar a tela principal', command=lambda: voltar_para_painel(user_id))
+    button_voltar = Button(janela, text='Voltar a tela principal',font= 'Arial 10 bold', cursor='hand2',relief= 'ridge',bg="#043c84",fg="#FFF", command=lambda: voltar_para_painel(user_id))
     button_voltar.pack(side='top', padx=5)
     button_voltar.place(x=100, y=380)
     
@@ -197,14 +197,14 @@ def abrir_painel_gerente(user_id):
     global label_msg_head
     global button_excluir_cliente
     user = db.get(doc_id=user_id)
-    label_msg_head = tk.Label(janela, text= user["nome"].split()[0] + ', escolha uma das opções disponíveis abaixo:', font=('normal', 14))
-    label_msg_head.place(x=100, y=160)
+    label_msg_head = tk.Label(janela, text= user["nome"].split()[0] + ', escolha uma das opções disponíveis abaixo:', font=('normal', 14),bg="#FFF")
+    label_msg_head.place(x=100, y=170)
     
-    button_excluir_cliente = tk.Button(janela, text='Excluir cliente', command=abrir_exclusao)
-    button_excluir_cliente.place(x=470, y=200)
+    button_excluir_cliente = tk.Button(janela, text='Excluir cliente',font= 'Arial 10 bold', cursor='hand2',relief= 'ridge',bg="#043c84",fg="#FFF", command=abrir_exclusao)
+    button_excluir_cliente.place(x=460, y=220)
 
-    button_cadastrar = tk.Button(janela, text= 'Cadastrar cliente', command=lambda: abrir_tela_cadastro(user_id, button_cadastrar, label_msg_head))
-    button_cadastrar.place(x=100, y=200)
+    button_cadastrar = tk.Button(janela, text= 'Cadastrar cliente',font= 'Arial 10 bold', cursor='hand2',relief= 'ridge',bg="#043c84",fg="#FFF", command=lambda: abrir_tela_cadastro(user_id, button_cadastrar, label_msg_head))
+    button_cadastrar.place(x=110, y=220)
 
 def abrir_exclusao():
     def confirmar_exclusão():
@@ -254,7 +254,7 @@ def abrir_login():
                 destruir_widgets_login()
                 abrir_painel_gerente(user_id)
         else:
-            label_result_login.configure(text='Suas credenciais estão erradas! Tente novamente.')
+            label_result_login.configure(text='Suas credenciais estão erradas! Tente novamente.',bg='#f2f3f4')
         
     def destruir_widgets_login():
         label_msg_head.destroy()
@@ -265,23 +265,23 @@ def abrir_login():
         button_enter.destroy()
         label_result_login.destroy()
 
-    label_msg_head= tk.Label(janela, text= 'Olá gerente, para acessar o sistema, faça o seu login:', font=('normal', 14))
+    label_msg_head= tk.Label(janela, text= 'Olá gerente, para acessar o sistema, faça o seu login:', font=('normal', 14),bg="#FFF")
     label_msg_head.place(x=100, y=160)
 
-    label_cpf_login= tk.Label(janela, text='CPF:')
+    label_cpf_login= tk.Label(janela, text='CPF:',bg="#FFF")
     label_cpf_login.place(x=100, y=190)
-    entry_cpf_login = tk.Entry(janela)
+    entry_cpf_login = tk.Entry(janela,bg='#f2f3f4')
     entry_cpf_login.place(x=100, y=210)
 
-    label_senha = tk.Label(janela, text='Senha:')
+    label_senha = tk.Label(janela, text='Senha:',bg="#FFF")
     label_senha.place(x=100, y=230)
-    entry_senha = tk.Entry(janela, show='*')
+    entry_senha = tk.Entry(janela, show='*',bg='#f2f3f4')
     entry_senha.place(x=100, y=250)
 
-    button_enter = tk.Button(janela, text= 'Entrar', command=logar)
-    button_enter.place(x=100, y=270)
+    button_enter = tk.Button(janela, text= 'Entrar', command=logar , bg="#043c84",relief='ridge',fg="#FFF")
+    button_enter.place(x=100, y=272)
 
-    label_result_login = tk.Label(janela, text='')
+    label_result_login = tk.Label(janela, text='',bg="#FFF")
     label_result_login.place(x=100, y=300)
     
 verificar_debitos = Transacoes()
