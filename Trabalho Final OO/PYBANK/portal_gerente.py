@@ -189,6 +189,108 @@ def abrir_tela_cadastro(user_id, button_cadastrar, label_msg_head):
     button_voltar = Button(janela, text='Voltar a tela principal',font= 'Arial 10 bold', cursor='hand2',relief= 'ridge',bg="#043c84",fg="#FFF", command=lambda: voltar_para_painel(user_id))
     button_voltar.pack(side='top', padx=5)
     button_voltar.place(x=100, y=380)
+
+def abrir_visualizar_editar_usuarios():
+    janela_visualizar = tk.Toplevel(janela)
+    janela_visualizar.title("Visualizar e Editar Usuários")
+    janela_visualizar.geometry("600x400")
+
+    label_instrucao = tk.Label(janela_visualizar, text="Selecione um usuário para editar os dados:")
+    label_instrucao.pack(pady=10)
+
+    lista_usuarios = tk.Listbox(janela_visualizar, width=100, height=15)
+    lista_usuarios.pack(pady=10)
+
+    # Preencher a lista com os usuários cadastrados
+    usuarios = db.all()  # Pega todos os usuários do banco de dados
+    for usuario in usuarios:
+        lista_usuarios.insert(tk.END, f"ID: {usuario.doc_id}, Nome: {usuario['nome']}, CPF/CNPJ: {usuario['cpf_ou_cnpj']}")
+
+    def editar_usuario():
+        # Verifica se algum usuário foi selecionado
+        selecionado = lista_usuarios.curselection()
+        if not selecionado:
+            messagebox.showerror("Erro", "Nenhum usuário selecionado.")
+            return
+
+        # Pega o ID do usuário selecionado
+        index = selecionado[0]
+        usuario_selecionado = usuarios[index]
+        user_id = usuario_selecionado.doc_id
+
+        # Abre uma nova janela para editar os dados do usuário selecionado
+        janela_editar = tk.Toplevel(janela_visualizar)
+        janela_editar.title("Editar Usuário")
+        janela_editar.geometry("500x400")
+
+        # Campos de edição
+        label_nome = Label(janela_editar, text='Nome:', bg="#FFF")
+        label_nome.place(x=50, y=50)
+        entry_nome = Entry(janela_editar, bg='#f2f3f4')
+        entry_nome.place(x=150, y=50)
+        entry_nome.insert(0, usuario_selecionado['nome'])
+
+        label_cpf_ou_cnpj = Label(janela_editar, text='CPF/CNPJ:', bg="#FFF")
+        label_cpf_ou_cnpj.place(x=50, y=100)
+        entry_cpf_ou_cnpj = Entry(janela_editar, bg='#f2f3f4')
+        entry_cpf_ou_cnpj.place(x=150, y=100)
+        entry_cpf_ou_cnpj.insert(0, usuario_selecionado['cpf_ou_cnpj'])
+
+        label_data_nascimento = Label(janela_editar, text='Data de Nascimento:', bg="#FFF")
+        label_data_nascimento.place(x=50, y=150)
+        entry_data_nascimento = Entry(janela_editar, bg='#f2f3f4')
+        entry_data_nascimento.place(x=150, y=150)
+        entry_data_nascimento.insert(0, usuario_selecionado['data_nascimento'])
+
+        label_telefone = Label(janela_editar, text='Telefone:', bg="#FFF")
+        label_telefone.place(x=50, y=200)
+        entry_telefone = Entry(janela_editar, bg='#f2f3f4')
+        entry_telefone.place(x=150, y=200)
+        entry_telefone.insert(0, usuario_selecionado['telefone'])
+
+        label_endereco = Label(janela_editar, text='Endereço:', bg="#FFF")
+        label_endereco.place(x=50, y=250)
+        entry_endereco = Entry(janela_editar, bg='#f2f3f4')
+        entry_endereco.place(x=150, y=250)
+        entry_endereco.insert(0, usuario_selecionado['endereco'])
+
+        label_renda = Label(janela_editar, text='Renda:', bg="#FFF")
+        label_renda.place(x=50, y=300)
+        entry_renda = Entry(janela_editar, bg='#f2f3f4')
+        entry_renda.place(x=150, y=300)
+        entry_renda.insert(0, usuario_selecionado['renda'])
+
+        # Função para salvar as alterações
+        def salvar_alteracoes():
+            nome = entry_nome.get()
+            cpf_ou_cnpj = entry_cpf_ou_cnpj.get()
+            data_nascimento = entry_data_nascimento.get()
+            telefone = entry_telefone.get()
+            endereco = entry_endereco.get()
+            renda = entry_renda.get()
+
+            # Atualiza os dados no banco de dados
+            db.update({
+                'nome': nome,
+                'cpf_ou_cnpj': cpf_ou_cnpj,
+                'data_nascimento': data_nascimento,
+                'telefone': telefone,
+                'endereco': endereco,
+                'renda': renda
+            }, doc_ids=[user_id])
+
+            messagebox.showinfo("Sucesso", "Dados do usuário atualizados com sucesso!")
+            janela_editar.destroy()
+            janela_visualizar.destroy()
+
+        # Botão para salvar as alterações
+        button_salvar = Button(janela_editar, text="Salvar Alterações", font='Arial 10 bold', cursor='hand2', relief='ridge', bg="#043c84", fg="#FFF", command=salvar_alteracoes)
+        button_salvar.pack(side='top', padx=5, pady=20)
+        button_salvar.place(x=200, y=350)
+
+    # Botão para editar o usuário selecionado
+    button_editar = tk.Button(janela_visualizar, text='Editar Usuário', font='Arial 10 bold', cursor='hand2', relief='ridge', bg="#043c84", fg="#FFF", command=editar_usuario)
+    button_editar.pack(pady=10)
     
 
 
@@ -196,15 +298,20 @@ def abrir_painel_gerente(user_id):
     global button_cadastrar
     global label_msg_head
     global button_excluir_cliente
-    user = db.get(doc_id=user_id)
-    label_msg_head = tk.Label(janela, text= user["nome"].split()[0] + ', escolha uma das opções disponíveis abaixo:', font=('normal', 14),bg="#FFF")
-    label_msg_head.place(x=100, y=170)
-    
-    button_excluir_cliente = tk.Button(janela, text='Excluir cliente',font= 'Arial 10 bold', cursor='hand2',relief= 'ridge',bg="#043c84",fg="#FFF", command=abrir_exclusao)
-    button_excluir_cliente.place(x=460, y=220)
+    global button_visualizar_editar
 
-    button_cadastrar = tk.Button(janela, text= 'Cadastrar cliente',font= 'Arial 10 bold', cursor='hand2',relief= 'ridge',bg="#043c84",fg="#FFF", command=lambda: abrir_tela_cadastro(user_id, button_cadastrar, label_msg_head))
-    button_cadastrar.place(x=110, y=220)
+    user = db.get(doc_id=user_id)
+    label_msg_head = tk.Label(janela, text=user["nome"].split()[0] + ', escolha uma das opções disponíveis abaixo:', font=('Arial 10 bold', 14), bg="#FFF")
+    label_msg_head.place(x=100, y=170)
+
+    button_excluir_cliente = tk.Button(janela, text='Excluir cliente', font='Arial 10 bold', cursor='hand2', relief='ridge', bg="#043c84", fg="#FFF", command=abrir_exclusao)
+    button_excluir_cliente.place(x=300, y=280)
+
+    button_cadastrar = tk.Button(janela, text='Cadastrar cliente', font='Arial 10 bold', cursor='hand2', relief='ridge', bg="#043c84", fg="#FFF", command=lambda: abrir_tela_cadastro(user_id, button_cadastrar, label_msg_head))
+    button_cadastrar.place(x=290, y=250)
+
+    button_visualizar_editar = tk.Button(janela, text='Visualizar/Editar Usuários', font='Arial 10 bold', cursor='hand2', relief='ridge', bg="#043c84", fg="#FFF", command=abrir_visualizar_editar_usuarios)
+    button_visualizar_editar.place(x=260, y=220)
 
 def abrir_exclusao():
     def confirmar_exclusão():
@@ -269,17 +376,17 @@ def abrir_login():
     label_msg_head.place(x=100, y=160)
 
     label_cpf_login= tk.Label(janela, text='CPF:',bg="#FFF")
-    label_cpf_login.place(x=100, y=190)
+    label_cpf_login.place(x=290, y=190)
     entry_cpf_login = tk.Entry(janela,bg='#f2f3f4')
-    entry_cpf_login.place(x=100, y=210)
+    entry_cpf_login.place(x=290, y=210)
 
     label_senha = tk.Label(janela, text='Senha:',bg="#FFF")
-    label_senha.place(x=100, y=230)
+    label_senha.place(x=290, y=230)
     entry_senha = tk.Entry(janela, show='*',bg='#f2f3f4')
-    entry_senha.place(x=100, y=250)
+    entry_senha.place(x=290, y=250)
 
     button_enter = tk.Button(janela, text= 'Entrar', command=logar , bg="#043c84",relief='ridge',fg="#FFF")
-    button_enter.place(x=100, y=272)
+    button_enter.place(x=330    , y=272)
 
     label_result_login = tk.Label(janela, text='',bg="#FFF")
     label_result_login.place(x=100, y=300)

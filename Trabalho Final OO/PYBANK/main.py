@@ -364,12 +364,15 @@ class PYBANKApp:
             verificar_banco.verificar_banco()
             label_opcoes = tk.Label(self.janela, text=opcoes_texto, font=("Arial", 16 ), justify="left", bg= azul, wraplength=300, foreground= '#FFF').place(x=215, y=325)
 
+
             button_1 = tk.Button(self.janela, text= 'Login',width= 10,bg=azul_escuro,relief=RIDGE,command=fazer_login,font=("Arial", 10, 'bold' ),
                                  foreground= '#FFF',height=2,activebackground="#0c4895",activeforeground= "#f1f0f0",cursor='hand2').place(x=250, y=460)
             button_2 = tk.Button(self.janela, text= 'Cadastre-se',width= 10,bg=azul_escuro,font=("Arial", 10,'bold' ),foreground= '#FFF',
                                   command= realizar_cadastro, height=2,activebackground="#0c4895",activeforeground= "#f1f0f0",cursor='hand2',relief=RIDGE).place(x=350, y=460)
 
             self.janela.mainloop()
+
+            
 
 if __name__ == "__main__":
     app = PYBANKApp()
