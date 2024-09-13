@@ -225,37 +225,37 @@ def abrir_visualizar_editar_usuarios():
 
         # Campos de edição
         label_nome = Label(janela_editar, text='Nome:', bg="#FFF")
-        label_nome.place(x=50, y=50)
+        label_nome.place(x=25, y=50)
         entry_nome = Entry(janela_editar, bg='#f2f3f4')
         entry_nome.place(x=150, y=50)
         entry_nome.insert(0, usuario_selecionado['nome'])
 
         label_cpf_ou_cnpj = Label(janela_editar, text='CPF/CNPJ:', bg="#FFF")
-        label_cpf_ou_cnpj.place(x=50, y=100)
+        label_cpf_ou_cnpj.place(x=25, y=100)
         entry_cpf_ou_cnpj = Entry(janela_editar, bg='#f2f3f4')
         entry_cpf_ou_cnpj.place(x=150, y=100)
         entry_cpf_ou_cnpj.insert(0, usuario_selecionado['cpf_ou_cnpj'])
 
         label_data_nascimento = Label(janela_editar, text='Data de Nascimento:', bg="#FFF")
-        label_data_nascimento.place(x=50, y=150)
+        label_data_nascimento.place(x=25, y=150)
         entry_data_nascimento = Entry(janela_editar, bg='#f2f3f4')
         entry_data_nascimento.place(x=150, y=150)
         entry_data_nascimento.insert(0, usuario_selecionado['data_nascimento'])
 
         label_telefone = Label(janela_editar, text='Telefone:', bg="#FFF")
-        label_telefone.place(x=50, y=200)
+        label_telefone.place(x=25, y=200)
         entry_telefone = Entry(janela_editar, bg='#f2f3f4')
         entry_telefone.place(x=150, y=200)
         entry_telefone.insert(0, usuario_selecionado['telefone'])
 
         label_endereco = Label(janela_editar, text='Endereço:', bg="#FFF")
-        label_endereco.place(x=50, y=250)
+        label_endereco.place(x=25, y=250)
         entry_endereco = Entry(janela_editar, bg='#f2f3f4')
         entry_endereco.place(x=150, y=250)
         entry_endereco.insert(0, usuario_selecionado['endereco'])
 
         label_renda = Label(janela_editar, text='Renda:', bg="#FFF")
-        label_renda.place(x=50, y=300)
+        label_renda.place(x=25, y=300)
         entry_renda = Entry(janela_editar, bg='#f2f3f4')
         entry_renda.place(x=150, y=300)
         entry_renda.insert(0, usuario_selecionado['renda'])
