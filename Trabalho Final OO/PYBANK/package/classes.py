@@ -118,22 +118,6 @@ class Transacoes:
 
         return transacoes_extrato
 
-    
-    # SAQUE: OK #
-    def saque(self, conta, valor):
-        cliente = self.db.get(doc_id=conta)
-        saldo = cliente['saldo']
-
-        if saldo >= valor and valor > 0:
-            novo_saldo = saldo - valor
-            novo_saldo = round(novo_saldo, 2)
-            # print(novo_saldo, saldo, valor)
-            self.registrar_transacao('Saque', valor, conta_origem=conta)
-            self.db.update({'saldo': novo_saldo}, doc_ids=[conta])
-            return True
-        else:
-            return False
-
     # DEPOSITO: OK #
     def deposito(self, conta, valor):
         cliente = self.db.get(doc_id=conta)

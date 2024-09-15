@@ -18,7 +18,7 @@ def abrir_janela_login():
     janela.destroy()
 
 janela = Tk()
-janela.title("Portal do gerente")
+janela.title("PYBANK Manager")
 janela.geometry('700x900')
 janela.resizable(False, False)
 
@@ -29,6 +29,7 @@ label = tk.Label(janela, image=imagem_tk).place(x=0, y=0, relwidth=1, relheight=
 def abrir_tela_cadastro(user_id, button_cadastrar, label_msg_head):
     button_cadastrar.destroy()
     button_excluir_cliente.destroy()
+    button_visualizar_editar.destroy()
     label_msg_head.destroy()
 
     label_nome = Label(janela, text='Nome:',bg="#FFF")
@@ -189,6 +190,9 @@ def abrir_tela_cadastro(user_id, button_cadastrar, label_msg_head):
     button_voltar = Button(janela, text='Voltar a tela principal',font= 'Arial 10 bold', cursor='hand2',relief= 'ridge',bg="#043c84",fg="#FFF", command=lambda: voltar_para_painel(user_id))
     button_voltar.pack(side='top', padx=5)
     button_voltar.place(x=100, y=380)
+
+
+
 
 def abrir_visualizar_editar_usuarios():
     janela_visualizar = tk.Toplevel(janela)
