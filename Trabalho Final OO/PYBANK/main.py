@@ -8,6 +8,8 @@ from datetime import datetime, timedelta
 
 azul = '#044cac'
 azul_escuro = '#043c84'
+
+
 class PYBANKApp:
     def __init__(self):
         self.diretorio_atual = os.path.dirname(os.path.abspath(__file__))
@@ -25,18 +27,7 @@ class PYBANKApp:
         ######################################
         #         INÍCIO DAS FUNÇÕES         #
         ######################################
-
-        def botoes():
-            button_1 = tk.Button(self.janela, text= '1', width=2).place(x=113, y=404)
-            button_2 = tk.Button(self.janela, text= '2', width=2).place(x=166, y=404)
-            button_3 = tk.Button(self.janela, text= '3', width=2).place(x=219, y=404)
-            button_4 = tk.Button(self.janela, text= '4', width=2).place(x=113, y=440)
-            button_5 = tk.Button(self.janela, text= '5', width=2).place(x=166, y=440)
-            button_6 = tk.Button(self.janela, text= '6', width=2).place(x=219, y=440)
-            button_7 = tk.Button(self.janela, text= '7', width=2).place(x=113, y=476)
-            button_8 = tk.Button(self.janela, text= '8', width=2).place(x=166, y=476)
-            button_9 = tk.Button(self.janela, text= '9', width=2).place(x=219, y=476)
-            button_0 = tk.Button(self.janela, text= '0', width=2).place(x=166, y=512)            
+   
 
        ################################################################################################# INÍCIO DA FUNÇÃO REALIZAR CADASTRO: OK ##########################################
         def realizar_cadastro():
@@ -133,14 +124,14 @@ class PYBANKApp:
                     scrollbar = tk.Scrollbar(frame_extrato)
                     scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
                     
-                    # Cria um widget Canvas para o frame do extrato
+                   
                     canvas = tk.Canvas(frame_extrato, yscrollcommand=scrollbar.set)
                     canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
                     
-                    # Associa a barra de rolagem ao canvas
+                    
                     scrollbar.config(command=canvas.yview)
                     
-                    # Cria um frame interno para as transações
+                    
                     inner_frame = tk.Frame(canvas)
                     canvas.create_window((0, 0), window=inner_frame, anchor=tk.NW)
                     
@@ -148,7 +139,7 @@ class PYBANKApp:
                         label_transacao = tk.Label(inner_frame, text=transacao, font=('normal', 10), justify="left")
                         label_transacao.pack(anchor=tk.W)
                     
-                    # Atualiza o tamanho do canvas
+                    
                     canvas.update_idletasks()
                     canvas.config(scrollregion=canvas.bbox(tk.ALL))
                     
@@ -231,7 +222,6 @@ class PYBANKApp:
             
           
 
-            solicitar = SolicitaCredito()
 
             label_valor = tk.Label(self.janela, text='Valor:', fg='black', bg="white",font=('Arial', 10,'bold'))
             label_valor.pack()
@@ -243,12 +233,10 @@ class PYBANKApp:
             label_credito_situacao = tk.Label(self.janela, text="", font=("Arial", 10), justify="left", fg="white", bg="white")
             label_credito_situacao.pack()
             label_credito_situacao.place(x=50, y=345)
-
-        
-
             label_cabecalho = tk.Label(self.janela, text="Olá, " + cliente["nome"] + "\nfaça o seu pedido." + '\n\nPEDIDO DE CRÉDITO:',  font=('normal', 16), fg=azul, bg="white", justify="left").place(x=50, y=170)
             button_asterisco = tk.Button(self.janela, text= 'Voltar', width=13, height=4,fg="white", bg="#004aad",font= "Arial 12 bold",relief=RIDGE, command=lambda: abrir_menu(cliente_id)).place(x=200, y=500)
 
+            solicitar = SolicitaCredito()
             def enviar_solicitacao(cliente_id):
                 print(cliente_id)
                 valor = float(entry_valor.get())

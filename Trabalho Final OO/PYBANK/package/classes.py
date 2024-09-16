@@ -63,7 +63,7 @@ class Transacoes:
         self.db.update({'saldo': novo_saldo}, doc_ids=[conta])
         return True
 
-    # RESGISTRAR TRANSAÇÕES: OK#
+    ################################################################################ RESGISTRAR TRANSAÇÕES: OK###########################################################################
     def registrar_transacao(self, tipo, valor, conta_origem=None, conta_destino=None):
         data_atual = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
@@ -204,7 +204,8 @@ class SolicitaCredito:
 
     def solicitacao(self, conta, valor, data):
         cliente = self.db.get(doc_id=conta)
-        if cliente['solicita_credito'] == 1: return False
+        if cliente['solicita_credito'] == 1: 
+            return False
         else:
             cpf_cnpj = cliente['cpf_ou_cnpj']
             if len(cpf_cnpj) == 11:
@@ -239,7 +240,7 @@ class VerificarBanco:
         if len(self.db) == 0:
             dados_padrao = {
                         "cadastro_nivel": 2,
-                        "nome": "Chevrolet da Silva Ford",
+                        "nome": "Gerente",
                         "telefone": "(88) 99881-4748",
                         "data_nascimento": "26/02/1973",
                         "cpf_ou_cnpj": "11111111111",
